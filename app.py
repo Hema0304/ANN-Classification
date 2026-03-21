@@ -1,5 +1,6 @@
 
 import streamlit as st
+
 import tensorflow as tf
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
 import pickle
@@ -7,8 +8,8 @@ import pandas as pd
 import numpy as np 
 
 #load the trained model 
-model=tf.keras.models.load_model('model.h5')
 
+model = tf.keras.models.load_model('model.h5', compile=False)
 #load the encoder and scaler 
 with open('onehot_encoder_geo.pkl','rb') as file:
     onehot_encoder_geo=pickle.load(file)
