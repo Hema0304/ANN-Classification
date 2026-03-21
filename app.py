@@ -55,12 +55,27 @@ input_data = pd.DataFrame({
 
 
 #onehot enocode geography
-geo_encoded = onehot_encoder_geo.transform([[geography]]).toarray()
+geo_df = pd.DataFrame({'Geography': [geography]})
+geo_encoded = onehot_encoder_geo.transform(geo_df).toarray()
 geo_encoded_df = pd.DataFrame(geo_encoded,columns=onehot_encoder_geo.get_feature_names_out(['Geography']))
 
 
 #combine one-hot encoded columns with input data 
 input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
+
+
+expected_columns = [
+    'CreditScore', 'Gender', 'Age', 'Tenure', 'Balance',
+    'NumOfProducts', 'HasCrCard', 'IsActiveMember',
+    'EstimatedSalary',
+    'Geography_France', 'Geography_Germany', 'Geography_Spain'
+]
+
+input_data = input_data.reindex(columns=expected_columns, fill_value=0)
+
+if input_data.isnull().values.any():
+    st.error("Input contains NaN values")
+    st.write(input_data)
 
 #scale the input data 
 input_data_scaled = scaler.transform(input_data)
@@ -68,7 +83,7 @@ input_data_scaled = scaler.transform(input_data)
 
 #prediction churn
 prediction = model.predict(input_data_scaled)
-prediction_proba = prediction[0][0]
+prediction_proba = float(prediction[0][0])
 
 st.write(f'Churn Probability : {prediction_proba:.2f}')
 
