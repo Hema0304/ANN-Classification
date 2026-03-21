@@ -64,18 +64,6 @@ geo_encoded_df = pd.DataFrame(geo_encoded,columns=onehot_encoder_geo.get_feature
 input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
 
 
-scaler_columns = scaler.feature_names_in_
-
-# combine
-input_data = pd.concat([input_data.reset_index(drop=True), geo_encoded_df], axis=1)
-
-# 🔥 FORCE MATCH WITH SCALER
-input_data = input_data.reindex(columns=scaler_columns, fill_value=0)
-
-if input_data.isnull().values.any():
-    st.error("Input contains NaN values")
-    st.write(input_data)
-
 #scale the input data 
 input_data_scaled = scaler.transform(input_data)
 
