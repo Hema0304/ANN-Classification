@@ -9,7 +9,7 @@ import numpy as np
 
 #load the trained model 
 
-model = tf.keras.models.load_model('model.h5', compile=False)
+model = tf.keras.models.load_model('model.keras')
 #load the encoder and scaler 
 with open('onehot_encoder_geo.pkl','rb') as file:
     onehot_encoder_geo=pickle.load(file)
