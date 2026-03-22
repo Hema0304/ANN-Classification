@@ -63,6 +63,13 @@ geo_encoded_df = pd.DataFrame(
 
 #combine one-hot encoded columns with input data 
 input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
+
+for col in x_train_columns:   # save this during training
+    if col not in input_data.columns:
+        input_data[col] = 0
+
+input_data = input_data[x_train_columns]
+
 input_data = input_data.reindex(columns=scaler.feature_names_in_, fill_value=0)
 
 
