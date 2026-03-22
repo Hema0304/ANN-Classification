@@ -27,7 +27,7 @@ st.title('Customer churn prediction')
 
 #user input 
 #geography = st.selectbox('Geography',onehot_encoder_geo.categories[0])
-geography = st.selectbox('Geography', ['France', 'Germany', 'Spain'])
+geography = st.selectbox('Geography', onehot_encoder_geo.categories_[0])
 gender = st.selectbox('Gender', ['Male', 'Female'])
 age = st.slider('Age',18,92)
 balance = st.number_input('Balance')
@@ -56,11 +56,15 @@ input_data = pd.DataFrame({
 
 #onehot enocode geography
 geo_encoded = onehot_encoder_geo.transform([[geography]]).toarray()
-geo_encoded_df = pd.DataFrame(geo_encoded,columns=onehot_encoder_geo.get_feature_names_out(['Geography']))
-
+geo_encoded_df = pd.DataFrame(
+    geo_encoded,
+    columns=onehot_encoder_geo.get_feature_names_out(['Geography'])
+)
 
 #combine one-hot encoded columns with input data 
 input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
+
+input_data = input_data.reindex(columns=scaler.feature_names_in_, fill_value=0)
 
 input_data = input_data.fillna(0)
 
