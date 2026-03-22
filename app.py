@@ -82,8 +82,7 @@ columns = [
     'Geography_Spain'
 ]
 
-input_data = input_data.reindex(columns=columns, fill_value=0)
-
+input_data = input_data[columns]
 #convert to float
 input_data = input_data.astype(float)
 
