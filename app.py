@@ -75,11 +75,6 @@ st.write("Final Input Data:", input_data)
 #scale the input data 
 input_data_scaled = scaler.transform(input_data)
 
-st.write("Columns expected:", columns)
-st.write("Input columns:", input_data.columns.tolist())
-st.write("Input Data:", input_data)
-st.write("Any NaN:", input_data.isnull().sum())
-st.write("Shape:", input_data.shape)
 
 #prediction churn
 prediction = model.predict(input_data_scaled)
