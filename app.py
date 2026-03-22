@@ -64,10 +64,14 @@ geo_encoded_df = pd.DataFrame(
 #combine one-hot encoded columns with input data 
 input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
 
+#correct column order
+input_data = input_data.reindex(columns=columns, fill_value=0)
 
-input_data = input_data.reindex(columns=scaler.feature_names_in_, fill_value=0)
+#convert to float
+input_data = input_data.astype(float)
 
-
+#debug
+st.write("Final Input Data:", input_data)
 
 
 #scale the input data 
