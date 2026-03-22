@@ -67,6 +67,21 @@ geo_df = pd.DataFrame(
 #combine one-hot encoded columns with input data 
 input_data = pd.concat([input_data.reset_index(drop=True),geo_df],axis=1)
 
+columns = [
+    'CreditScore',
+    'Gender',
+    'Age',
+    'Tenure',
+    'Balance',
+    'NumOfProducts',
+    'HasCrCard',
+    'IsActiveMember',
+    'EstimatedSalary',
+    'Geography_France',
+    'Geography_Germany',
+    'Geography_Spain'
+]
+
 input_data = input_data.reindex(columns=columns, fill_value=0)
 
 #convert to float
