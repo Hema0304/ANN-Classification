@@ -71,14 +71,12 @@ input_data = input_data.reindex(columns=scaler.feature_names_in_, fill_value=0)
 #scale the input data 
 input_data_scaled = scaler.transform(input_data)
 
-st.write("Final Input Data:", input_data)
-st.write("Scaled Data:", input_data_scaled)
 #prediction churn
 prediction = model.predict(input_data_scaled)
 prediction_proba = float(prediction[0][0])
 
 st.write(f'Churn Probability : {prediction_proba:.2f}')
-st.write("Input Data:", input_data)
+)
 
 if prediction_proba > 0.5:
    st.write("The customer is likely to churn")
