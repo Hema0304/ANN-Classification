@@ -27,7 +27,7 @@ st.title('Customer churn prediction')
 
 #user input 
 #geography = st.selectbox('Geography',onehot_encoder_geo.categories[0])
-geography = st.selectbox('Geography', onehot_encoder_geo.categories_[0])
+geography = st.selectbox('Geography', ['France', 'Germany', 'Spain'])
 gender = st.selectbox('Gender', ['Male', 'Female'])
 age = st.slider('Age',18,92)
 balance = st.number_input('Balance')
