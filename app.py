@@ -64,7 +64,7 @@ input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1
 
 
 input_data = input_data.reindex(columns=scaler.feature_names_in_, fill_value=0)
-sum())
+
 
 #scale the input data 
 input_data_scaled = scaler.transform(input_data)
