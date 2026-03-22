@@ -38,7 +38,7 @@ num_of_products = st.slider('Number of products',1,4)
 has_cr_card = st.selectbox('Has Credit Card',[0,1])
 is_active_member = st.selectbox('Is Active Member',[0,1])
 
-gender_encoded = label_encoder_gender.transform([gender])[0]
+gender_encoded = label_encoder_gender.transform([gender])[0].
 
 #input data
 input_data = pd.DataFrame({
@@ -56,40 +56,15 @@ input_data = pd.DataFrame({
 
 
 #onehot enocode geography
-geo_encoded = onehot_encoder_geo.transform(
-    pd.DataFrame([[geography]], columns=['Geography'])
-).toarray()
-geo_df = pd.DataFrame(
-    geo_encoded,
-    columns=onehot_encoder_geo.get_feature_names_out(['Geography'])
-)
+geo_encoded = onehot_encoder_geo.transform([[geography]]).toarray() 
+geo_encoded_df = pd.DataFrame( geo_encoded, columns=onehot_encoder_geo.get_feature_names_out(['Geography']))
 
 #combine one-hot encoded columns with input data 
-input_data = pd.concat([input_data.reset_index(drop=True),geo_df],axis=1)
+input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1)
 
-columns = [
-    'CreditScore',
-    'Gender',
-    'Age',
-    'Tenure',
-    'Balance',
-    'NumOfProducts',
-    'HasCrCard',
-    'IsActiveMember',
-    'EstimatedSalary',
-    'Geography_France',
-    'Geography_Germany',
-    'Geography_Spain'
-]
 
-input_data = input_data[columns]
-#convert to float
-input_data = input_data.astype(float)
-
-#debug
-st.write("Final Input Data:", input_data)
-st.write("Shape:", input_data.shape)
-st.write("NaN Check:", input_data.isnull().sum())
+input_data = input_data.reindex(columns=scaler.feature_names_in_, fill_value=0)
+sum())
 
 #scale the input data 
 input_data_scaled = scaler.transform(input_data)
