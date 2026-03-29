@@ -66,19 +66,22 @@ input_data = pd.concat([input_data.reset_index(drop=True),geo_encoded_df],axis=1
 input_data = input_data.reindex(columns=scaler.feature_names_in_, fill_value=0)
 
 
-#scale the input data 
-input_data_scaled = scaler.transform(input_data)
+if st.button("Predict"):
 
+    input_data = input_data.fillna(0)
 
-#prediction churn
-prediction = model.predict(input_data_scaled)
-prediction_proba = float(np.nan_to_num(prediction[0][0]))
+    input_data_scaled = scaler.transform(input_data)
 
+    prediction = model.predict(input_data_scaled)
 
-st.write(f'Churn Probability : {prediction_proba:.2f}')
+    st.write("Raw prediction:", prediction)
 
+    prediction_proba = float(np.nan_to_num(prediction[0][0]))
 
-if prediction_proba > 0.5:
-   st.write("The customer is likely to churn")
-else:
-    st.write("The customer is not likely to churn")
+    st.write(f'Churn Probability : {prediction_proba:.2f}')
+
+    if prediction_proba > 0.5:
+        st.success("The customer is likely to churn")
+    else:
+        st.success("The customer is not likely to churn")
+   
